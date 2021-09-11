@@ -10,7 +10,7 @@ buildscript {
     ext.androidXTestCoreVersion = "1.4.0"
     ext.mockitoVersion = "3.9.0"
     ext.androidx_test_espresso = "3.4.0"
-
+    ext.retrofit_version = '2.9.0'
 
     repositories {
         google()

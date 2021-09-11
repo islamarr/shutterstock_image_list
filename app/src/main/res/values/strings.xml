@@ -3,6 +3,10 @@
     <string name="app_name">Shutterstock</string>
 
     <!-- Splash -->
-    <string name="spalsh_message">Welcome to Shutterstock App</string>
+    <string name="splash_message">Welcome to Shutterstock App</string>
+
+    <!--Exception Handler-->
+    <string name="no_internet_connection">Make sure you have an active Internet connection!</string>
+    <string name="error_message">Something went wrong, try again!</string>
 
 </resources>
