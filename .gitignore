@@ -44,7 +44,10 @@ captures/
 .idea/assetWizardSettings.xml
 .idea/dictionaries
 .idea/libraries
+<<<<<<< HEAD
 .idea/jarRepositories.xml
+=======
+>>>>>>> d315fdfc9f25c68559a8a492242d142c52020463
 # Android Studio 3 in .gitignore file.
 .idea/caches
 .idea/modules.xml
