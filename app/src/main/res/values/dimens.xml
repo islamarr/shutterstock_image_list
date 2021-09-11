@@ -1,0 +1,9 @@
+<resources>
+    <!-- font sizes -->
+    <dimen name="font_huge">24sp</dimen>
+    <dimen name="font_xLarge">20sp</dimen>
+    <dimen name="font_large">18sp</dimen>
+    <dimen name="font_normal">16sp</dimen>
+    <dimen name="font_small">12sp</dimen>
+
+</resources>
