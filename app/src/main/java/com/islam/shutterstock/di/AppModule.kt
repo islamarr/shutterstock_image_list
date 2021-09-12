@@ -2,8 +2,10 @@ package com.islam.shutterstock.di
 
 import android.content.Context
 import com.islam.shutterstock.data.network.ShutterStockService
-import com.islam.shutterstock.data.network.internet.ConnectivityInterCeptor
-import com.islam.shutterstock.data.network.internet.ConnectivityInterCeptorImpl
+import com.islam.shutterstock.data.network.internet.ConnectivityInterceptor
+import com.islam.shutterstock.data.network.internet.ConnectivityInterceptorImpl
+import com.islam.shutterstock.data.network.repositories.SearchImageRepository
+import com.islam.shutterstock.data.network.repositories.SearchImageRepositoryImpl
 import com.islam.shutterstock.generalUtils.Utils
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
@@ -24,8 +26,13 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideConnectivityInterCeptor(@ApplicationContext context: Context): ConnectivityInterCeptor {
-        return ConnectivityInterCeptorImpl(context)
+    fun provideSearchRepository(api: ShutterStockService) =
+        SearchImageRepositoryImpl(api) as SearchImageRepository
+
+    @Singleton
+    @Provides
+    fun provideConnectivityInterceptor(@ApplicationContext context: Context): ConnectivityInterceptor {
+        return ConnectivityInterceptorImpl(context)
     }
 
     @Singleton
@@ -39,7 +46,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideAPI(
-        connectivityInterCeptor: ConnectivityInterCeptor,
+        connectivityInterceptor: ConnectivityInterceptor,
         httpLoggingInterceptor: HttpLoggingInterceptor
     ): ShutterStockService {
 
@@ -47,7 +54,7 @@ object AppModule {
             .readTimeout(15, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS)
-            .addNetworkInterceptor(connectivityInterCeptor)
+            .addNetworkInterceptor(connectivityInterceptor)
             .addInterceptor(httpLoggingInterceptor)
             .build()
 

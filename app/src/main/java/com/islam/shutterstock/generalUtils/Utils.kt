@@ -6,12 +6,12 @@ import androidx.viewbinding.BuildConfig
 
 object Utils {
 
-    const val DEVURL = ""
-    const val URL = ""
+    private const val DEV_URL = "https://api.shutterstock.com/"
+    private const val URL = "https://api.shutterstock.com/"
 
     fun getUrl(): String {
         return if (BuildConfig.DEBUG)
-            DEVURL
+            DEV_URL
         else
             URL
     }
