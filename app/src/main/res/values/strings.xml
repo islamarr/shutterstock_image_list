@@ -1,12 +1,17 @@
 <resources>
 
-    <string name="app_name">Shutterstock</string>
+    <string name="app_name">ShutterStock</string>
 
     <!-- Splash -->
-    <string name="splash_message">Welcome to Shutterstock App</string>
+    <string name="splash_message">Welcome to ShutterStock App</string>
 
-    <!--Exception Handler-->
-    <string name="no_internet_connection">Make sure you have an active Internet connection!</string>
+    <!-- Exception Handler -->
+    <string name="no_internet_connection">You have no internet connection!</string>
     <string name="error_message">Something went wrong, try again!</string>
+
+    <!-- Home Screen -->
+    <string name="search">Search</string>
+    <string name="retry">Retry</string>
+    <string name="image_desc">ShutterStock Image</string>
 
 </resources>
