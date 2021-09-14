@@ -1,13 +1,13 @@
 package com.islam.shutterstock.data.network.dataSource
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.islam.shutterstock.data.Resource
-import com.islam.shutterstock.data.repositories.SearchImageRepository
 import com.islam.shutterstock.data.network.response.ImageDataResponse
+import com.islam.shutterstock.data.repositories.SearchImageRepository
 import com.islam.shutterstock.generalUtils.PAGE_SIZE
 import com.islam.shutterstock.generalUtils.TOKEN
+import com.islam.shutterstock.generalUtils.Utils
 
 class HomeDataSource(private val repository: SearchImageRepository) :
     PagingSource<Int, ImageDataResponse>() {
@@ -31,7 +31,7 @@ class HomeDataSource(private val repository: SearchImageRepository) :
                 nextKey = if (imageList.isEmpty()) null else page + 1
             )
         } catch (exception: Exception) {
-            Log.e(TAG, exception.message.toString())
+            Utils.loge(TAG, exception.message.toString())
             LoadResult.Error(exception)
         }
     }

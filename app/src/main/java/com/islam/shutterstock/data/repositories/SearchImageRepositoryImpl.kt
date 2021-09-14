@@ -1,11 +1,11 @@
 package com.islam.shutterstock.data.repositories
 
-import android.util.Log
 import com.islam.shutterstock.data.Resource
 import com.islam.shutterstock.data.network.ShutterStockService
 import com.islam.shutterstock.data.network.response.ImageResponse
 import com.islam.shutterstock.generalUtils.ApiException
 import com.islam.shutterstock.generalUtils.NoInternetException
+import com.islam.shutterstock.generalUtils.Utils
 import javax.inject.Inject
 
 class SearchImageRepositoryImpl @Inject constructor(private val api: ShutterStockService) :
@@ -27,10 +27,10 @@ class SearchImageRepositoryImpl @Inject constructor(private val api: ShutterStoc
                 Resource.Error("Something went wrong, try again!")
             }
         } catch (e: ApiException) {
-            Log.e(TAG, e.toString())
+            Utils.loge(TAG, e.toString())
             Resource.Error("Something went wrong, try again!")
         } catch (ne: NoInternetException) {
-            Log.e(TAG, ne.toString())
+            Utils.loge(TAG, ne.toString())
             Resource.Error("Make sure you have an active Internet connection!")
         }
     }

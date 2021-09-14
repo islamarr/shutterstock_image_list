@@ -2,6 +2,7 @@ package com.islam.shutterstock.generalUtils
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.util.Log
 import androidx.viewbinding.BuildConfig
 
 object Utils {
@@ -21,6 +22,10 @@ object Utils {
                 as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnected
+    }
+
+    fun loge(tag: String, message: String) {
+        if (BuildConfig.DEBUG) Log.e(tag, message)
     }
 
 }
