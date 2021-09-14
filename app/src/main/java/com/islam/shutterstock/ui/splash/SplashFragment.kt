@@ -5,9 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.islam.shutterstock.R
 import com.islam.shutterstock.databinding.FragmentSplashBinding
-import com.islam.shutterstock.ui.BaseFragment
+import com.islam.shutterstock.ui.base.BaseFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

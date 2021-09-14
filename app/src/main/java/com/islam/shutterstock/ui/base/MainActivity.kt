@@ -1,4 +1,4 @@
-package com.islam.shutterstock.ui
+package com.islam.shutterstock.ui.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -7,10 +7,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.islam.shutterstock.R
 import com.islam.shutterstock.databinding.FragmentHomeScreenBinding
-import com.islam.shutterstock.ui.BaseFragment
 import com.islam.shutterstock.ui.adapters.HomeAdapter
 import com.islam.shutterstock.ui.adapters.HomeLoadStateAdapter
+import com.islam.shutterstock.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -28,6 +29,14 @@ class HomeScreenFragment : BaseFragment<FragmentHomeScreenBinding>() {
 
         initRecyclerView()
         startObserver()
+
+        binding?.listLayout?.retryBtn?.setOnClickListener {
+            lifecycleScope.launch {
+                viewModel.searchResults().collectLatest {
+                    homeAdapter.submitData(it)
+                }
+            }
+        }
 
         lifecycleScope.launch {
             viewModel.searchResults().collectLatest {
@@ -69,9 +78,12 @@ class HomeScreenFragment : BaseFragment<FragmentHomeScreenBinding>() {
                     }
 
                     errorState?.let {
-                        //     binding?.listLayout?.list?.visibility = View.GONE
-                        //     binding?.listLayout?.emptyList?.visibility = View.VISIBLE
-                        //     binding?.listLayout?.emptyList?.text = getString(R.string.no_internet_connection)
+                        if (homeAdapter.itemCount == 0) {
+                            binding?.listLayout?.list?.visibility = View.GONE
+                            binding?.listLayout?.emptyList?.visibility = View.VISIBLE
+                            binding?.listLayout?.emptyListText?.text =
+                                getString(R.string.no_internet_connection)
+                        }
                     }
 
                 }

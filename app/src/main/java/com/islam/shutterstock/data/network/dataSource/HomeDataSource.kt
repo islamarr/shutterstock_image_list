@@ -21,15 +21,22 @@ class HomeDataSource(private val repository: SearchImageRepository) :
 
         return try {
             val page = params.key ?: START_INDEX
-            val response =
-                (repository.searchImages(TOKEN, page, PAGE_SIZE) as Resource.Success).data
-            val imageList = response.data
 
-            LoadResult.Page(
-                data = imageList,
-                prevKey = if (page <= START_INDEX) null else page - 1,
-                nextKey = if (imageList.isEmpty()) null else page + 1
-            )
+            val response = repository.searchImages(TOKEN, page, PAGE_SIZE)
+            lateinit var imageList: List<ImageDataResponse>
+
+            when (response) {
+                is Resource.Success -> {
+                    imageList = response.data.data
+                    LoadResult.Page(
+                        data = imageList,
+                        prevKey = if (page <= START_INDEX) null else page - 1,
+                        nextKey = if (imageList.isEmpty()) null else page + 1
+                    )
+                }
+                is Resource.Error -> LoadResult.Error(Throwable(response.exception))
+            }
+
         } catch (exception: Exception) {
             Utils.loge(TAG, exception.message.toString())
             LoadResult.Error(exception)
