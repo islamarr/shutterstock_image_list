@@ -6,6 +6,7 @@ import com.islam.shutterstock.data.network.ShutterStockService
 import com.islam.shutterstock.data.network.response.ImageResponse
 import com.islam.shutterstock.generalUtils.ApiException
 import com.islam.shutterstock.generalUtils.NoInternetException
+import com.islam.shutterstock.generalUtils.PAGE_SIZE
 import com.islam.shutterstock.generalUtils.TOKEN
 import javax.inject.Inject
 
@@ -19,7 +20,7 @@ class SearchImageRepositoryImpl @Inject constructor(private val api: ShutterStoc
     ): Resource<ImageResponse> {
 
         return try {
-            val response = api.searchImages(TOKEN, "", 1, 1)
+            val response = api.searchImages(TOKEN, "", page, PAGE_SIZE)
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.Success(it)
