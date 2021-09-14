@@ -1,4 +1,4 @@
-package com.islam.shutterstock.data.network.internet
+package com.islam.shutterstock.data.network.interceptors
 
 import android.content.Context
 import com.islam.shutterstock.R

@@ -26,7 +26,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
             delay(1500)
 
-            findNavController().navigate(R.id.action_splash_to_homeScreenFragment)
+            findNavController().navigate(SplashFragmentDirections.actionSplashToHomeScreenFragment())
 
         }
 

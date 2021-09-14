@@ -2,7 +2,7 @@ package com.islam.shutterstock.data.network.response
 
 import com.google.gson.annotations.SerializedName
 
-data class Data(
+data class ImageDataResponse(
     val aspect: Double, // 1.5005
     val assets: Assets,
     val contributor: Contributor,

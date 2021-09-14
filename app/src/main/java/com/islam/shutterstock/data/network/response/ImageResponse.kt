@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 
 data class ImageResponse(
-    val data: List<Data>,
+    val data: List<ImageDataResponse>,
     val page: Int, // 1
     @SerializedName("per_page")
     val perPage: Int, // 1
