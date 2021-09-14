@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.islam.shutterstock.data.network.dataSource.MainDataSource
-import com.islam.shutterstock.data.network.repositories.SearchImageRepository
+import com.islam.shutterstock.data.network.dataSource.HomeDataSource
+import com.islam.shutterstock.data.repositories.SearchImageRepository
 import com.islam.shutterstock.generalUtils.PAGE_SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class HomeScreenViewModel @Inject constructor(private val repository: SearchImageRepository) :
     ViewModel() {
 
-    fun searchResults(query: String) =
+    fun searchResults() =
         Pager(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
@@ -23,7 +23,7 @@ class HomeScreenViewModel @Inject constructor(private val repository: SearchImag
                 initialLoadSize = PAGE_SIZE
             ),
             pagingSourceFactory = {
-                MainDataSource(query, repository)
+                HomeDataSource(repository)
             }
         ).flow.cachedIn(viewModelScope)
 

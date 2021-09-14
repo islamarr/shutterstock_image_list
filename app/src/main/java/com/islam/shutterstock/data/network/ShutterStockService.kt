@@ -11,7 +11,6 @@ interface ShutterStockService {
     @GET("v2/images/search")
     suspend fun searchImages(
         @Header("Authorization") token: String,
-        @Query("query") query: String,
         @Query("page") pageNumber: Int,
         @Query("per_page") pageSize: Int,
     ): Response<ImageResponse>

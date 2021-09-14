@@ -30,7 +30,7 @@ class HomeScreenFragment : BaseFragment<FragmentHomeScreenBinding>() {
         startObserver()
 
         lifecycleScope.launch {
-            viewModel.searchResults("").collectLatest {
+            viewModel.searchResults().collectLatest {
                 homeAdapter.submitData(it)
             }
         }

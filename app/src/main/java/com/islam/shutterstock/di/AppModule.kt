@@ -4,8 +4,8 @@ import android.content.Context
 import com.islam.shutterstock.data.network.ShutterStockService
 import com.islam.shutterstock.data.network.interceptors.ConnectivityInterceptor
 import com.islam.shutterstock.data.network.interceptors.ConnectivityInterceptorImpl
-import com.islam.shutterstock.data.network.repositories.SearchImageRepository
-import com.islam.shutterstock.data.network.repositories.SearchImageRepositoryImpl
+import com.islam.shutterstock.data.repositories.SearchImageRepository
+import com.islam.shutterstock.data.repositories.SearchImageRepositoryImpl
 import com.islam.shutterstock.generalUtils.Utils
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module

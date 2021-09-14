@@ -1,4 +1,4 @@
-package com.islam.shutterstock.data.network.repositories
+package com.islam.shutterstock.data.repositories
 
 import android.util.Log
 import com.islam.shutterstock.data.Resource
@@ -6,21 +6,19 @@ import com.islam.shutterstock.data.network.ShutterStockService
 import com.islam.shutterstock.data.network.response.ImageResponse
 import com.islam.shutterstock.generalUtils.ApiException
 import com.islam.shutterstock.generalUtils.NoInternetException
-import com.islam.shutterstock.generalUtils.PAGE_SIZE
-import com.islam.shutterstock.generalUtils.TOKEN
 import javax.inject.Inject
 
 class SearchImageRepositoryImpl @Inject constructor(private val api: ShutterStockService) :
     SearchImageRepository {
 
     override suspend fun searchImages(
-        query: String,
+        token: String,
         page: Int,
         pageSize: Int
     ): Resource<ImageResponse> {
 
         return try {
-            val response = api.searchImages(TOKEN, "", page, PAGE_SIZE)
+            val response = api.searchImages(token, page, pageSize)
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.Success(it)

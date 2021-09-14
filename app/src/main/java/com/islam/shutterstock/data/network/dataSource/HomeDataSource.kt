@@ -4,16 +4,17 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.islam.shutterstock.data.Resource
-import com.islam.shutterstock.data.network.repositories.SearchImageRepository
+import com.islam.shutterstock.data.repositories.SearchImageRepository
 import com.islam.shutterstock.data.network.response.ImageDataResponse
 import com.islam.shutterstock.generalUtils.PAGE_SIZE
+import com.islam.shutterstock.generalUtils.TOKEN
 
-class MainDataSource(private val query: String, private val repository: SearchImageRepository) :
+class HomeDataSource(private val repository: SearchImageRepository) :
     PagingSource<Int, ImageDataResponse>() {
 
     companion object {
         private const val START_INDEX = 1
-        private const val TAG = "MainDataSource"
+        private const val TAG = "HomeDataSource"
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ImageDataResponse> {
@@ -21,7 +22,7 @@ class MainDataSource(private val query: String, private val repository: SearchIm
         return try {
             val page = params.key ?: START_INDEX
             val response =
-                (repository.searchImages(query, page, PAGE_SIZE) as Resource.Success).data
+                (repository.searchImages(TOKEN, page, PAGE_SIZE) as Resource.Success).data
             val imageList = response.data
 
             LoadResult.Page(
