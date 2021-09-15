@@ -41,6 +41,7 @@ class HomeDataSource(private val repository: SearchImageRepository) :
             Utils.loge(TAG, exception.message.toString())
             LoadResult.Error(exception)
         }
+
     }
 
     override fun getRefreshKey(state: PagingState<Int, ImageDataResponse>): Int? {

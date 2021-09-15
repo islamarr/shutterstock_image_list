@@ -3,7 +3,7 @@ package com.islam.shutterstock.generalUtils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.util.Log
-import androidx.viewbinding.BuildConfig
+import com.islam.shutterstock.BuildConfig
 
 object Utils {
 

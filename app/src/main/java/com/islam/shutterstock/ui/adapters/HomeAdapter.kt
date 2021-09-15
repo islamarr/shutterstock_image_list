@@ -14,29 +14,7 @@ import com.islam.shutterstock.R
 import com.islam.shutterstock.data.network.response.ImageDataResponse
 import com.islam.shutterstock.databinding.OneItemListBinding
 
-class HomeAdapter : PagingDataAdapter<ImageDataResponse, HomeAdapter.ViewHolder>(DIFF_CALLBACK) {
-
-    companion object {
-
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ImageDataResponse>() {
-            override fun areItemsTheSame(
-                oldItem: ImageDataResponse,
-                newItem: ImageDataResponse
-            ): Boolean {
-
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(
-                oldItem: ImageDataResponse,
-                newItem: ImageDataResponse
-            ): Boolean {
-
-                return oldItem == newItem
-            }
-        }
-
-    }
+class HomeAdapter : PagingDataAdapter<ImageDataResponse, HomeAdapter.ViewHolder>(HomeDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
