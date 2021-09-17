@@ -2,11 +2,11 @@ package com.islam.shutterstock.data.network.dataSource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.islam.shutterstock.BuildConfig
 import com.islam.shutterstock.data.Resource
 import com.islam.shutterstock.data.network.response.ImageDataResponse
 import com.islam.shutterstock.data.repositories.SearchImageRepository
 import com.islam.shutterstock.generalUtils.PAGE_SIZE
-import com.islam.shutterstock.generalUtils.TOKEN
 import com.islam.shutterstock.generalUtils.Utils
 
 class HomeDataSource(private val repository: SearchImageRepository) :
@@ -22,7 +22,7 @@ class HomeDataSource(private val repository: SearchImageRepository) :
         return try {
             val page = params.key ?: START_INDEX
 
-            val response = repository.searchImages(TOKEN, page, PAGE_SIZE)
+            val response = repository.searchImages(BuildConfig.TOKEN, page, PAGE_SIZE)
             lateinit var imageList: List<ImageDataResponse>
 
             when (response) {
