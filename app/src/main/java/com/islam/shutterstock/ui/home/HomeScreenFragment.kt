@@ -3,6 +3,7 @@ package com.islam.shutterstock.ui.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -17,7 +18,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeScreenFragment : BaseFragment<FragmentHomeScreenBinding>() {
+class HomeScreenFragment : BaseFragment<FragmentHomeScreenBinding>(), View.OnClickListener {
 
     private val viewModel: HomeScreenViewModel by viewModels()
     private lateinit var homeAdapter: HomeAdapter
@@ -28,16 +29,13 @@ class HomeScreenFragment : BaseFragment<FragmentHomeScreenBinding>() {
     override fun setupOnViewCreated(view: View) {
 
         initRecyclerView()
+        startSearch()
         startObserver()
+        binding?.listLayout?.retryBtn?.setOnClickListener(this)
 
-        binding?.listLayout?.retryBtn?.setOnClickListener {
-            lifecycleScope.launch {
-                viewModel.searchResults().collectLatest {
-                    homeAdapter.submitData(it)
-                }
-            }
-        }
+    }
 
+    private fun startSearch() {
         lifecycleScope.launch {
             viewModel.searchResults().collectLatest {
                 homeAdapter.submitData(it)
@@ -53,17 +51,11 @@ class HomeScreenFragment : BaseFragment<FragmentHomeScreenBinding>() {
                 loadState.refresh is LoadState.NotLoading && homeAdapter.itemCount == 0
 
             when {
-                isEmptyList -> {
+                isEmptyList -> binding?.listLayout?.list?.visibility = View.GONE
 
-                    binding?.listLayout?.list?.visibility = View.GONE
-
-                }
                 loadState.refresh is LoadState.Loading -> {
-
-                    binding?.listLayout?.list?.visibility = View.VISIBLE
-                    binding?.listLayout?.emptyList?.visibility = View.GONE
+                    showEmptyList(false)
                     binding?.listLayout?.loadingProgressBar?.visibility = View.VISIBLE
-
                 }
                 else -> {
 
@@ -79,10 +71,8 @@ class HomeScreenFragment : BaseFragment<FragmentHomeScreenBinding>() {
 
                     errorState?.let {
                         if (homeAdapter.itemCount == 0) {
-                            binding?.listLayout?.list?.visibility = View.GONE
-                            binding?.listLayout?.emptyList?.visibility = View.VISIBLE
-                            binding?.listLayout?.emptyListText?.text =
-                                getString(R.string.no_internet_connection)
+                            showEmptyList(true)
+                            binding?.listLayout?.emptyListText?.text = it.error.message
                         }
                     }
 
@@ -105,6 +95,19 @@ class HomeScreenFragment : BaseFragment<FragmentHomeScreenBinding>() {
             footer = HomeLoadStateAdapter(homeAdapter)
         )
 
+    }
+
+    private fun showEmptyList(show: Boolean) {
+        binding?.listLayout?.emptyList?.isVisible = show
+        binding?.listLayout?.list?.isVisible = !show
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.retryBtn -> {
+                startSearch()
+            }
+        }
     }
 
 

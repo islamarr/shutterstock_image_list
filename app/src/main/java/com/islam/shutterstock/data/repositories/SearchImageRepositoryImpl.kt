@@ -3,9 +3,7 @@ package com.islam.shutterstock.data.repositories
 import com.islam.shutterstock.data.Resource
 import com.islam.shutterstock.data.network.ShutterStockService
 import com.islam.shutterstock.data.network.response.ImageResponse
-import com.islam.shutterstock.generalUtils.ApiException
-import com.islam.shutterstock.generalUtils.NoInternetException
-import com.islam.shutterstock.generalUtils.Utils
+import com.islam.shutterstock.generalUtils.*
 import javax.inject.Inject
 
 class SearchImageRepositoryImpl @Inject constructor(private val api: ShutterStockService) :
@@ -22,16 +20,16 @@ class SearchImageRepositoryImpl @Inject constructor(private val api: ShutterStoc
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.Success(it)
-                } ?: Resource.Error("Something went wrong, try again!")
+                } ?: Resource.Error(UNKNOWN_ERROR)
             } else {
-                Resource.Error("Something went wrong, try again!")
+                Resource.Error(UNKNOWN_ERROR)
             }
         } catch (e: ApiException) {
             Utils.loge(TAG, e.toString())
-            Resource.Error("Something went wrong, try again!")
+            Resource.Error(UNKNOWN_ERROR)
         } catch (ne: NoInternetException) {
             Utils.loge(TAG, ne.toString())
-            Resource.Error("Make sure you have an active Internet connection!")
+            Resource.Error(INTERNET_ERROR)
         }
     }
 
