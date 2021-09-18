@@ -2,7 +2,9 @@
 
 About this project
 --------------
-🚀 Sample implementations for MVVM architecture pattern and clean code.
+🚀 List of awesome pictures from ShutterStock.
+
+🛠 Simple implementation for MVVM architecture pattern and clean code.
 
 🛠 SOLID principles.
 
@@ -11,6 +13,7 @@ About this project
 🛠 Standard Coding Style.
 
 🛠 Support Tablet screens.
+
 
 
 Architecture pattern Used
@@ -54,6 +57,22 @@ Technical choices
 - In RecyclerView, it is mandatory to use ViewHolder pattern Which optimize the performance.
 - DiffUtil callback Which optimize the performance.
 
+**Activities vs Fragments**
+
+- I have used a single-activity architecture which allowed me to take full advantage of the Navigation component, which mean that a single activity that manages and host multiple fragments.
+- The fragment is more lite weight than Activity.
+
+**Hilt vs Dagger2 vs Koin**
+
+- Hilt is built on top of the Dagger, and it comes with some advantages like simplify Dagger code and create a standard set of components and scopes to ease setup.
+- Hilt does not need factories for ViewModel, koin need.
+- Hilt generate the code in the compile time, while koin in runtime. 
+
+**Glide**
+
+- Glide very effective for almost any case where you need to fetch, resize, cache and display a remote image.
+- Support round pictures, thumbnail and placeholder which I needed in this project.
+
 
 What's next
 --------------
@@ -63,6 +82,12 @@ What's next
 - Unit tests are still need to be written.
 - I wish I could have extend it to Clean Architecture, maybe update it in the coming iteration.
 
+Other Projects
+--------------
+[Sona3][30]
+[Recorder][31]
+[Prayer Now][32]
+[Mn Ahyaha][33]
 
 
 [0]: https://developer.android.com/jetpack/components
@@ -79,6 +104,10 @@ What's next
 [20]: https://square.github.io/retrofit
 [21]: https://developer.android.com/kotlin/flow
 [22]: https://developer.android.com/topic/libraries/architecture/paging/v3-overview
+[30]: https://github.com/islamarr/Sona3
+[31]: https://github.com/islamarr/recorder
+[32]: https://play.google.com/store/apps/details?id=com.AppRocks.now.prayer
+[33]: https://play.google.com/store/apps/details?id=com.Ihsan.Ahyaha
 [90]: https://bumptech.github.io/glide/
 [91]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [92]: https://developer.android.com/training/dependency-injection/hilt-android
