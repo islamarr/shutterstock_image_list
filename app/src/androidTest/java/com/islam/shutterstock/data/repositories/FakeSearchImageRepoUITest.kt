@@ -4,10 +4,19 @@ import com.islam.shutterstock.data.Resource
 import com.islam.shutterstock.data.network.response.ImageDataResponse
 import com.islam.shutterstock.data.network.response.ImageResponse
 
-class FakeSearchImageRepositoryTest(
-    private val fakeImages: List<ImageDataResponse>,
-    private var shouldReturnNetworkError: Boolean
-) : SearchImageRepository {
+class FakeSearchImageRepoUITest : SearchImageRepository {
+
+    private var shouldReturnNetworkError = false
+    private val imageFactory = ImageFactoryUI()
+    private val fakeImages = mutableListOf<ImageDataResponse>()
+
+
+    private fun fakeImages() {
+        repeat(25) {
+            fakeImages.add(imageFactory.createImageItem())
+        }
+    }
+
 
     override suspend fun searchImages(
         token: String,
@@ -26,6 +35,7 @@ class FakeSearchImageRepositoryTest(
     }
 
     private fun createImageResponse(): ImageResponse {
+        fakeImages()
         return ImageResponse(
             data = fakeImages,
             page = 1,
