@@ -9,7 +9,8 @@
         android:id="@+id/error_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/font_default" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -21,8 +22,9 @@
     <Button
         android:id="@+id/retry_button"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/width_normal"
+        android:layout_height="@dimen/height_small"
         android:layout_gravity="center"
-        android:text="@string/retry" />
+        android:text="@string/retry"
+        android:textSize="@dimen/font_normal" />
 </LinearLayout>

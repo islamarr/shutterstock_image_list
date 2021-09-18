@@ -4,6 +4,7 @@
     <dimen name="font_xLarge">20sp</dimen>
     <dimen name="font_large">18sp</dimen>
     <dimen name="font_normal">16sp</dimen>
+    <dimen name="font_default">14sp</dimen>
     <dimen name="font_small">12sp</dimen>
 
     <!-- typical spacing between two views -->
@@ -16,5 +17,7 @@
     <dimen name="img_height_tall">310dp</dimen>
     <dimen name="img_width_normal">220dp</dimen>
     <dimen name="card_radius">15dp</dimen>
+    <dimen name="height_small">45dp</dimen>
+    <dimen name="width_normal">100dp</dimen>
 
 </resources>

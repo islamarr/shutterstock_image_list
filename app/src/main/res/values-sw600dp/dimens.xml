@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- font sizes -->
+    <dimen name="font_huge">30sp</dimen>
+    <dimen name="font_xLarge">26sp</dimen>
+    <dimen name="font_large">22sp</dimen>
+    <dimen name="font_normal">20sp</dimen>
+    <dimen name="font_default">18sp</dimen>
+    <dimen name="font_small">16sp</dimen>
+
+    <!-- typical spacing between two views -->
+    <dimen name="spacing_huge">60dp</dimen>
+    <dimen name="spacing_large">40dp</dimen>
+    <dimen name="spacing_normal">24dp</dimen>
+    <dimen name="spacing_small">18dp</dimen>
+
+    <!-- typical sizes of views -->
+    <dimen name="img_height_tall">350dp</dimen>
+    <dimen name="img_width_normal">260dp</dimen>
+    <dimen name="card_radius">20dp</dimen>
+    <dimen name="height_small">65dp</dimen>
+    <dimen name="width_normal">120dp</dimen>
+
+</resources>
