@@ -56,7 +56,7 @@ class HomeScreenFragmentTest {
     }
 
     @Test
-    fun testOneCard() {
+    fun checkTextOnCard() {
         val textView = onView(
             allOf(
                 withId(R.id.description),
@@ -81,7 +81,7 @@ class HomeScreenFragmentTest {
     }
 
     @Test
-    fun checkOneCard_CardDataIsCorrect() {
+    fun checkOneCard_atFirstPosition_CardDataIsCorrect() {
         onView(withId(R.id.list)).check(
             matches(
                 atPosition(

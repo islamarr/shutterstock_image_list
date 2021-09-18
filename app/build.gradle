@@ -24,12 +24,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "TOKEN", RELEASE_TOKEN
+            buildConfigField "String", "BASE_URL", RELEASE_BASE_URL
         }
         debug {
             buildConfigField "String", "TOKEN", DEBUG_TOKEN
+            buildConfigField "String", "BASE_URL", DEBUG_BASE_URL
         }
         staging {
             buildConfigField "String", "TOKEN", STAGING_TOKEN
+            buildConfigField "String", "BASE_URL", STAGING_BASE_URL
         }
     }
     compileOptions {
