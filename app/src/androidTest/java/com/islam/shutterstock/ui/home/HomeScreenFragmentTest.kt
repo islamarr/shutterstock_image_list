@@ -18,6 +18,7 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.core.IsInstanceOf
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,10 +33,13 @@ class HomeScreenFragmentTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
+    @Before
+    fun launchFragment(){
+        launchFragmentInHiltContainer<HomeScreenFragment>(Bundle(), R.style.Theme_Shutterstock)
+    }
+
     @Test
     fun testList() {
-        launchFragmentInHiltContainer<HomeScreenFragment>(Bundle(), R.style.Theme_Shutterstock)
-
         val recyclerView = onView(
             allOf(
                 withId(R.id.list),
@@ -53,8 +57,6 @@ class HomeScreenFragmentTest {
 
     @Test
     fun testOneCard() {
-        launchFragmentInHiltContainer<HomeScreenFragment>(Bundle(), R.style.Theme_Shutterstock)
-
         val textView = onView(
             allOf(
                 withId(R.id.description),
@@ -64,13 +66,10 @@ class HomeScreenFragmentTest {
             )
         )
         textView.check(matches(withText("description_1")))
-
     }
 
     @Test
     fun loadResults_fromFakeRepo_returnsList() {
-        launchFragmentInHiltContainer<HomeScreenFragment>(Bundle(), R.style.Theme_Shutterstock)
-
         onView(withId(R.id.list)).check { view, noViewFoundException ->
             if (noViewFoundException != null) {
                 throw noViewFoundException
@@ -83,8 +82,6 @@ class HomeScreenFragmentTest {
 
     @Test
     fun checkOneCard_CardDataIsCorrect() {
-        launchFragmentInHiltContainer<HomeScreenFragment>(Bundle(), R.style.Theme_Shutterstock)
-
         onView(withId(R.id.list)).check(
             matches(
                 atPosition(
