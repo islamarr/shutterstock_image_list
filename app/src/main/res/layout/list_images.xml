@@ -23,9 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone"
-        android:gravity="center"
         tools:visibility="visible">
 
         <TextView
@@ -34,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_large"
             android:layout_marginBottom="@dimen/spacing_large"
+            android:fontFamily="@font/elmessiri_regular"
             android:gravity="center"
             android:textColor="@color/gray"
             android:textSize="@dimen/font_xLarge" />
@@ -44,6 +45,7 @@
             android:layout_width="@dimen/width_normal"
             android:layout_height="@dimen/height_small"
             android:layout_gravity="center"
+            android:fontFamily="@font/elmessiri_bold"
             android:text="@string/retry"
             android:textSize="@dimen/font_normal" />
 
