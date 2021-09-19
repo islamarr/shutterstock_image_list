@@ -1,5 +1,7 @@
 # ShutterStock
 
+![GitHub followers][40]     ![GitHub Repo stars][41]     ![GitHub forks][42]
+
 About this project
 --------------
 🚀 List of awesome pictures from ShutterStock.
@@ -15,6 +17,12 @@ About this project
 🛠 Support Tablet screens.
 
 
+Challenges
+--------------
+- Performance and smooth scrolling:
+  I was in need to pagination to keep the app in high performance by reducing server overhead and improve response time.
+  I have used Glide which is a fast and efficient image loading library uses memory and disk caching by default to avoid unnecessary network calls.
+
 
 Architecture pattern Used
 --------------
@@ -22,7 +30,7 @@ Architecture pattern Used
 
 ![architecture pattern][2]
 
-Libraries Used
+Libraries & Tools Used
 --------------
 
 * [Foundation][0] - Components for core system capabilities, Kotlin extensions and support for
@@ -45,15 +53,21 @@ Libraries Used
     * [Glide][90] For image loading.
     * [Hilt][92]: For [dependency injection][93]
     * [Kotlin Coroutines][91] For managing background threads with simplified code and reducing needs for callbacks.
+* Other tools/plugins   
+    * [SonarLint plugin][50] - Static Code Analysis that identifies and helps you fix quality and security issues as you code.
+    * [Espresso test recorder][51] - Tool lets you create UI tests for your app without writing any test code.
 
 Technical choices
 --------------
-**MVVM**
+
+**MVVM vs MVP**
+
 - Loose coupling between View & ViewModel, ViewModel has no reference to the View. So it isn't affected by configuration changes.
 - Aware by lifecycle. ViewModel save data even after rotate mobile.
 - Easy to Test.
 
-**RecyclerView**
+**RecyclerView vs listview**
+
 - In RecyclerView, it is mandatory to use ViewHolder pattern Which optimize the performance.
 - DiffUtil callback Which optimize the performance.
 
@@ -65,8 +79,20 @@ Technical choices
 **Hilt vs Dagger2 vs Koin**
 
 - Hilt is built on top of the Dagger, and it comes with some advantages like simplify Dagger code and create a standard set of components and scopes to ease setup.
+- As this project is simple, Hilt is the best one. For more complex projects I will go with Dagger2 to avoid some limitation of hilt.
 - Hilt does not need factories for ViewModel, koin need.
 - Hilt generate the code in the compile time, while koin in runtime. 
+
+**Coroutines vs RxJava**
+
+- For me, Coroutines are simpler & readable than RxJava, and it is working very well in a small projects like that.
+  In more complex projects may be RxJava is better to get benefit of their operators, and to handle a complex data flow. 
+  However, Coroutines have some advantages over RxJava like Channel.
+  
+**Retrofit vs Volley**
+  
+- For me, Retrofit has a well-designed code, more readable.
+- Recommended by Google. 
 
 **Glide**
 
@@ -81,6 +107,7 @@ What's next
 - Also the UI needs to be much fancier.
 - Unit tests are still need to be written.
 - I wish I could have extend it to Clean Architecture, maybe update it in the coming iteration.
+
 
 Other Projects
 --------------
@@ -108,6 +135,11 @@ Other Projects
 [31]: https://github.com/islamarr/recorder
 [32]: https://play.google.com/store/apps/details?id=com.AppRocks.now.prayer
 [33]: https://play.google.com/store/apps/details?id=com.Ihsan.Ahyaha
+[40]: https://img.shields.io/github/followers/islamarr?style=social
+[41]: https://img.shields.io/github/stars/islamarr/shutterstock_image_list?style=social
+[42]: https://img.shields.io/github/forks/islamarr/shutterstock_image_list?style=social
+[50]: https://www.sonarlint.org/
+[51]: https://developer.android.com/studio/test/espresso-test-recorder
 [90]: https://bumptech.github.io/glide/
 [91]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [92]: https://developer.android.com/training/dependency-injection/hilt-android
