@@ -20,12 +20,10 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
     }
 
     private fun startApp() {
-
         lifecycleScope.launch {
             delay(2000)
             findNavController().navigate(SplashFragmentDirections.actionSplashToHomeScreenFragment())
         }
-
     }
 
 }

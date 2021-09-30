@@ -26,10 +26,8 @@ class HomeAdapter : PagingDataAdapter<ImageDataResponse, HomeAdapter.ViewHolder>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val listItems = getItem(position)
         holder.bind(listItems!!)
-
     }
 
     inner class ViewHolder(itemView: OneItemListBinding) : RecyclerView.ViewHolder(itemView.root) {
@@ -37,10 +35,8 @@ class HomeAdapter : PagingDataAdapter<ImageDataResponse, HomeAdapter.ViewHolder>
         private val description: TextView = itemView.description
 
         fun bind(listItems: ImageDataResponse) {
-
             loadImage(itemView.context, listItems.assets.preview.url, image)
             description.text = listItems.description
-
         }
     }
 

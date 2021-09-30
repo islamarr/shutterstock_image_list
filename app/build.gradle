@@ -60,9 +60,10 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    // RxJava 3
+    implementation "io.reactivex.rxjava3:rxjava:3.1.1"
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
@@ -73,12 +74,13 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
     //Paging
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    // Paging with RxJava 3
+    implementation "androidx.paging:paging-rxjava3:$paging_version"
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
     testImplementation 'junit:junit:4.+'
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

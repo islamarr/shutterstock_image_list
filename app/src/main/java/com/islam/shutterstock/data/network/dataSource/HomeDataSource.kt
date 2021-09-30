@@ -1,47 +1,42 @@
 package com.islam.shutterstock.data.network.dataSource
 
-import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import androidx.paging.rxjava3.RxPagingSource
 import com.islam.shutterstock.BuildConfig
-import com.islam.shutterstock.data.Resource
 import com.islam.shutterstock.data.network.response.ImageDataResponse
+import com.islam.shutterstock.data.network.response.ImageResponse
 import com.islam.shutterstock.data.repositories.SearchImageRepository
 import com.islam.shutterstock.generalUtils.PAGE_SIZE
-import com.islam.shutterstock.generalUtils.Utils
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class HomeDataSource(private val repository: SearchImageRepository) :
-    PagingSource<Int, ImageDataResponse>() {
+    RxPagingSource<Int, ImageDataResponse>() {
 
     companion object {
         private const val START_INDEX = 1
         private const val TAG = "HomeDataSource"
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ImageDataResponse> {
+    override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, ImageDataResponse>> {
+        val page = params.key ?: START_INDEX
 
-        return try {
-            val page = params.key ?: START_INDEX
+        return repository.searchImages(BuildConfig.TOKEN, page, PAGE_SIZE)
+            .subscribeOn(Schedulers.io())
+            .map { toLoadResult(it, page) }
+            .onErrorReturn { LoadResult.Error(it) }
+    }
 
-            val response = repository.searchImages(BuildConfig.TOKEN, page, PAGE_SIZE)
-            lateinit var imageList: List<ImageDataResponse>
-
-            when (response) {
-                is Resource.Success -> {
-                    imageList = response.data.data
-                    LoadResult.Page(
-                        data = imageList,
-                        prevKey = if (page <= START_INDEX) null else page - 1,
-                        nextKey = if (imageList.isEmpty()) null else page + 1
-                    )
-                }
-                is Resource.Error -> LoadResult.Error(Throwable(response.exception))
-            }
-
-        } catch (exception: Exception) {
-            Utils.loge(TAG, exception.message.toString())
-            LoadResult.Error(exception)
-        }
-
+    private fun toLoadResult(
+        response: ImageResponse,
+        page: Int
+    ): LoadResult<Int, ImageDataResponse> {
+        val imageList: List<ImageDataResponse> = response.data
+        return LoadResult.Page(
+            data = imageList,
+            prevKey = if (page <= START_INDEX) null else page - 1,
+            nextKey = if (imageList.isEmpty()) null else page + 1
+        )
     }
 
     override fun getRefreshKey(state: PagingState<Int, ImageDataResponse>): Int? {
