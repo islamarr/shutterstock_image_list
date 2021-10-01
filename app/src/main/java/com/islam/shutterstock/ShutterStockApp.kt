@@ -1,7 +1,18 @@
 package com.islam.shutterstock
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.islam.shutterstock.di.AppComponent
+import com.islam.shutterstock.di.DaggerAppComponent
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@HiltAndroidApp
-class ShutterStockApp : Application()
+@ExperimentalCoroutinesApi
+class ShutterStockApp : Application() {
+
+    val appComponent: AppComponent by lazy {
+        initializeComponent()
+    }
+
+    private fun initializeComponent(): AppComponent {
+        return DaggerAppComponent.factory().create(applicationContext)
+    }
+}

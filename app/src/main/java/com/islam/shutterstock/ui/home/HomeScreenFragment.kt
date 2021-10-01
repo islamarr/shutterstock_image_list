@@ -1,5 +1,6 @@
 package com.islam.shutterstock.ui.home
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,17 +13,28 @@ import com.islam.shutterstock.databinding.FragmentHomeScreenBinding
 import com.islam.shutterstock.ui.adapters.HomeAdapter
 import com.islam.shutterstock.ui.adapters.HomeLoadStateAdapter
 import com.islam.shutterstock.ui.base.BaseFragment
-import dagger.hilt.android.AndroidEntryPoint
+import com.islam.shutterstock.ui.base.MainActivity
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-@AndroidEntryPoint
 class HomeScreenFragment : BaseFragment<FragmentHomeScreenBinding>(), View.OnClickListener {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel: HomeScreenViewModel by viewModels {
+        viewModelFactory
+    }
+
     private val mDisposable = CompositeDisposable()
-    private val viewModel: HomeScreenViewModel by viewModels()
     private lateinit var homeAdapter: HomeAdapter
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (activity as MainActivity).appComponent.inject(this)
+    }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeScreenBinding
         get() = FragmentHomeScreenBinding::inflate

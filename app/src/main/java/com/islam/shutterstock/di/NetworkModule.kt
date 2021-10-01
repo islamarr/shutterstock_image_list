@@ -5,14 +5,8 @@ import com.islam.shutterstock.BuildConfig
 import com.islam.shutterstock.data.network.ShutterStockService
 import com.islam.shutterstock.data.network.interceptors.ConnectivityInterceptor
 import com.islam.shutterstock.data.network.interceptors.ConnectivityInterceptorImpl
-import com.islam.shutterstock.data.repositories.SearchImageRepository
-import com.islam.shutterstock.data.repositories.SearchImageRepositoryImpl
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -22,17 +16,11 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
-object AppModule {
+object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideSearchRepository(api: ShutterStockService) =
-        SearchImageRepositoryImpl(api) as SearchImageRepository
-
-    @Singleton
-    @Provides
-    fun provideConnectivityInterceptor(@ApplicationContext context: Context): ConnectivityInterceptor {
+    fun provideConnectivityInterceptor(context: Context): ConnectivityInterceptor {
         return ConnectivityInterceptorImpl(context)
     }
 
