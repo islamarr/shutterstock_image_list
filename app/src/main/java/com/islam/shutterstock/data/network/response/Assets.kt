@@ -1,10 +1,9 @@
 package com.islam.shutterstock.data.network.response
 
-import com.google.gson.annotations.SerializedName
-
+import com.squareup.moshi.Json
 
 data class Assets(
     val preview: Preview = Preview(),
-    @SerializedName("preview_1000")
+    @field:Json(name = "preview_1000")
     val preview1000: Preview1000 = Preview1000(),
 )
