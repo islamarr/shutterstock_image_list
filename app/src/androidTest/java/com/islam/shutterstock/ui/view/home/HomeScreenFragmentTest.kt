@@ -1,4 +1,4 @@
-package com.islam.shutterstock.ui.home
+package com.islam.shutterstock.ui.view.home
 
 import android.os.Bundle
 import android.view.View

@@ -1,4 +1,4 @@
-package com.islam.shutterstock.ui.splash
+package com.islam.shutterstock.ui.view.splash
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,4 +1,4 @@
-package com.islam.shutterstock.ui.home
+package com.islam.shutterstock.ui.view.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,15 +6,19 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.islam.shutterstock.R
+import com.islam.shutterstock.data.network.response.ImageDataResponse
 import com.islam.shutterstock.databinding.FragmentHomeScreenBinding
 import com.islam.shutterstock.ui.adapters.HomeAdapter
 import com.islam.shutterstock.ui.adapters.HomeLoadStateAdapter
 import com.islam.shutterstock.ui.base.BaseFragment
+import com.islam.shutterstock.ui.intent.MainIntent
+import com.islam.shutterstock.ui.viewmodel.HomeScreenViewModel
+import com.islam.shutterstock.ui.viewstate.MainState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -27,63 +31,53 @@ class HomeScreenFragment : BaseFragment<FragmentHomeScreenBinding>(), View.OnCli
         get() = FragmentHomeScreenBinding::inflate
 
     override fun setupOnViewCreated(view: View) {
-
         initRecyclerView()
         startSearch()
-        startObserver()
+        observeViewModel()
         binding?.listLayout?.retryBtn?.setOnClickListener(this)
-
     }
 
     private fun startSearch() {
         lifecycleScope.launch {
-            viewModel.searchResults().collectLatest {
-                homeAdapter.submitData(it)
+            viewModel.searchIntent.send(MainIntent.SearchResults)
+        }
+    }
+
+    private fun observeViewModel() {
+        lifecycleScope.launch {
+            viewModel.state.collect {
+                when (it) {
+                    is MainState.Idle -> {
+                       // showEmptyList(true)
+                    }
+                    is MainState.Loading -> {
+                        binding?.listLayout?.loadingProgressBar?.visibility = View.VISIBLE
+                        showEmptyList(false)
+                    }
+                    is MainState.ImageData -> {
+                        renderList(it.imageDataResponse)
+                    }
+                    is MainState.Error -> {
+                        binding?.listLayout?.list?.visibility = View.GONE
+                        binding?.listLayout?.emptyList?.visibility = View.GONE
+                        binding?.listLayout?.loadingProgressBar?.visibility = View.GONE
+                        if (homeAdapter.itemCount == 0) {
+                            showEmptyList(true)
+                            binding?.listLayout?.emptyListText?.text = it.error
+                        }
+                    }
+                }
             }
         }
     }
 
-    private fun startObserver() {
-
-        homeAdapter.addLoadStateListener { loadState ->
-
-            val isEmptyList =
-                loadState.refresh is LoadState.NotLoading && homeAdapter.itemCount == 0
-
-            when {
-                isEmptyList -> binding?.listLayout?.list?.visibility = View.GONE
-
-                loadState.refresh is LoadState.Loading -> {
-                    showEmptyList(false)
-                    binding?.listLayout?.loadingProgressBar?.visibility = View.VISIBLE
-                }
-                else -> {
-
-                    binding?.listLayout?.emptyList?.visibility = View.GONE
-                    binding?.listLayout?.loadingProgressBar?.visibility = View.GONE
-
-                    val errorState = when {
-                        loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-                        loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-                        loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-                        else -> null
-                    }
-
-                    errorState?.let {
-                        if (homeAdapter.itemCount == 0) {
-                            showEmptyList(true)
-                            binding?.listLayout?.emptyListText?.text = it.error.message
-                        }
-                    }
-
-                }
-            }
-        }
-
+    private suspend fun renderList(pagingData: PagingData<ImageDataResponse>) {
+        binding?.listLayout?.loadingProgressBar?.visibility = View.GONE
+        showEmptyList(false)
+        homeAdapter.submitData(pagingData)
     }
 
     private fun initRecyclerView() {
-
         binding?.listLayout?.list?.apply {
             homeAdapter = HomeAdapter()
             layoutManager = LinearLayoutManager(requireActivity())
@@ -94,7 +88,6 @@ class HomeScreenFragment : BaseFragment<FragmentHomeScreenBinding>(), View.OnCli
             header = HomeLoadStateAdapter(homeAdapter),
             footer = HomeLoadStateAdapter(homeAdapter)
         )
-
     }
 
     private fun showEmptyList(show: Boolean) {
