@@ -61,8 +61,7 @@ dependencies {
     // Dagger2
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    // Retrofit with Moshi Converter
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
